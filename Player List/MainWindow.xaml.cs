@@ -26,7 +26,14 @@ namespace Player_List
         private const int _endAge = 18;
 
         //Creating a list of player objects
-        List<Player> playersList = new List<Player>();
+        private List<Player> _playersList = new List<Player>();
+        
+        //Get start date and end date
+        private static DateTime _startDate = DateTime.Now.AddYears(-_startAge); //31/01/2008
+        private static DateTime _endDate = DateTime.Now.AddYears(-_endAge); //31/01/2000
+
+        //Get a randomnumber of days in that range
+        private TimeSpan _range = _startDate - _endDate;
 
         public MainWindow()
         {
@@ -36,13 +43,13 @@ namespace Player_List
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             //Filling the list with player objects
-            playersList.Add(new Player() { Name = "Mike Smith", DOB = GetRandomDate(_startAge, _endAge, _dateGen) });
-            playersList.Add(new Player() { Name = "Sue Smith", DOB = GetRandomDate(_startAge, _endAge, _dateGen) });
-            playersList.Add(new Player() { Name = "John Smith", DOB = GetRandomDate(_startAge, _endAge, _dateGen) });
-            playersList.Add(new Player() { Name = "Joanne Smith", DOB = GetRandomDate(_startAge, _endAge, _dateGen) });
+            _playersList.Add(new Player() { Name = "Mike Smith", DOB = GetRandomDate(_startAge, _endAge, _startDate, _endDate, _dateGen, _range) });
+            _playersList.Add(new Player() { Name = "Sue Smith", DOB = GetRandomDate(_startAge, _endAge, _startDate, _endDate, _dateGen, _range) });
+            _playersList.Add(new Player() { Name = "John Smith", DOB = GetRandomDate(_startAge, _endAge, _startDate, _endDate, _dateGen, _range) });
+            _playersList.Add(new Player() { Name = "Joanne Smith", DOB = GetRandomDate(_startAge, _endAge, _startDate, _endDate, _dateGen, _range) });
 
             //Calculating the age for every player in the list
-            foreach (Player player in playersList)
+            foreach (Player player in _playersList)
             {
                 player.CalculateAge();
                 player.CalculateAgeGroup();
@@ -50,27 +57,19 @@ namespace Player_List
             
 
             //Setting the list box to display the player objects once the application loads
-            listBoxPlayerList.ItemsSource = playersList;
+            listBoxPlayerList.ItemsSource = _playersList;
         }
 
         
         //Method to return a random date of birth between 18 and 8 years ago
-        static DateTime GetRandomDate(int _startAgeIn, int _endAgeIn, Random _dateGenIn)
+        static DateTime GetRandomDate(int _startAgeIn, int _endAgeIn, DateTime startDateIn, DateTime endDateIn, Random _dateGenIn, TimeSpan _rangeIn)
         {
-            //Get start date and end date
-            DateTime startDate = DateTime.Now.AddYears(-_startAgeIn); //31/01/2008
-            DateTime endDate = DateTime.Now.AddYears(-_endAgeIn); //31/01/2000
-
-            //Get a randomnumber of days in that range
-            TimeSpan range = startDate - endDate;
-
             //Grab the total number of the days from the year range
-            double daysInRange = range.TotalDays;
-
+            double daysInRange = _rangeIn.TotalDays;
             int randomDays = _dateGenIn.Next(0,(int)daysInRange);
 
             //Getting a new random date
-            DateTime newRandomDate = endDate.AddDays(randomDays);
+            DateTime newRandomDate = endDateIn.AddDays(randomDays);
 
             return newRandomDate;
         }
@@ -81,19 +80,18 @@ namespace Player_List
             //Checking to see if the name and datepicker have a value inside of them
             if (txtBoxName != null && datePicker1 != null)
             {
-                //If they have data in them then add a new player object to the list and display it
-                playersList.Add(new Player() { Name = txtBoxName.Text, DOB = DateTime.ParseExact(datePicker1.SelectedDate.Value.ToString(),"dd/MM/yyyy", null) });
+                _playersList.Add(new Player() { Name = txtBoxName.Text, DOB = DateTime.ParseExact(datePicker1.SelectedDate.Value.ToString(), "dd/MM/yyyy", null) });
             }
-            //Make the listbox display whatever is in it at the time before the button press
             else
             {
+                //Make the listbox display whatever is in it at the time before the button press
                 listBoxPlayerList.ItemsSource = null;
-                listBoxPlayerList.ItemsSource = playersList;
+                listBoxPlayerList.ItemsSource = _playersList;
             }
 
             //Keeping the orignal list if nothing is put into the boxes originally
             listBoxPlayerList.ItemsSource = null;
-            listBoxPlayerList.ItemsSource = playersList;
+            listBoxPlayerList.ItemsSource = _playersList;
         }
 
         private void BtnSaveContent_Click(object sender, RoutedEventArgs e)
