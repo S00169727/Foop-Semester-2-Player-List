@@ -21,7 +21,7 @@ namespace Player_List
     public partial class MainWindow : Window
     {
         //Fields
-        private Random _dateGen = new Random();
+        private static Random _dateGen = new Random();
         private const int _startAge = 8;
         private const int _endAge = 18;
 
@@ -38,6 +38,15 @@ namespace Player_List
         public MainWindow()
         {
             InitializeComponent();
+
+            DatePicker datePickerAdd = new DatePicker
+            {
+                SelectedDate = new DateTime(2000, 1, 31),
+                DisplayDateStart = new DateTime(2000, 1, 31),
+                DisplayDateEnd = new DateTime(2008, 1, 31),
+                SelectedDateFormat = DatePickerFormat.Long,
+                FirstDayOfWeek = DayOfWeek.Monday
+            };
         }
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
@@ -80,7 +89,7 @@ namespace Player_List
             //Checking to see if the name and datepicker have a value inside of them
             if (txtBoxName != null && datePicker1 != null)
             {
-                _playersList.Add(new Player() { Name = txtBoxName.Text, DOB = DateTime.ParseExact(datePicker1.SelectedDate.Value.ToString(), "dd/MM/yyyy", null) });
+                _playersList.Add(new Player() { Name = txtBoxName.Text });
             }
             else
             {

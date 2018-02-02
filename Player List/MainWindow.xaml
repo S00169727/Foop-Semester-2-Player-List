@@ -16,16 +16,15 @@
         <TextBox x:Name="txtBoxName" HorizontalAlignment="Left" Height="23" Margin="530,103,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
         <Label x:Name="lblDateOfBirth" Content="Date of Birth" HorizontalAlignment="Left" Margin="467,147,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker1"  HorizontalAlignment="Left" Margin="549,149,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="datePicker1"  HorizontalAlignment="Left" Margin="549,149,0,0" VerticalAlignment="Top" SelectedDateFormat="Long" SelectedDate="1/31/00"
+                  DisplayDateStart="1/31/00" DisplayDateEnd="1/31/08" 
+                  FirstDayOfWeek="Monday"/>
 
 
         <Button x:Name="btnSaveContent" Content="Save" HorizontalAlignment="Left" Margin="150,370,0,0" VerticalAlignment="Top" Width="75" Click="BtnSaveContent_Click"/>
         <Button x:Name="btnLoadContent" Content="Load" HorizontalAlignment="Left" Margin="44,370,0,0" VerticalAlignment="Top" Width="75" Click="BtnLoadContent_Click"/>
 
         <Button x:Name="btnAddPlayer" Content="Add Player" HorizontalAlignment="Left" Margin="575,202,0,0" VerticalAlignment="Top" Width="75" Click="BtnAddPlayer_Click"/>
-
-
-
 
     </Grid>
 </Window>
