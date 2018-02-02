@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +40,7 @@ namespace Player_List
         public MainWindow()
         {
             InitializeComponent();
-
+            
             DatePicker datePicker1 = new DatePicker
             {
                 SelectedDate = new DateTime(2000, 1, 31),
@@ -92,6 +94,12 @@ namespace Player_List
                 //Adding a new player to the list based on the name input and the date picker selection
                 _playersList.Add(new Player() { Name = txtBoxName.Text, DOB = datePicker1.SelectedDate.Value });
 
+                foreach (Player newPlayer in _playersList)
+                {
+                    newPlayer.CalculateAge();
+                    newPlayer.CalculateAgeGroup();
+                }
+                
                 txtBoxName.Clear();
             }
             else
@@ -115,5 +123,7 @@ namespace Player_List
         {
 
         }
+
+        
     }
 }
