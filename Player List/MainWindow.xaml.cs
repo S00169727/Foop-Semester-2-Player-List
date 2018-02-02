@@ -39,7 +39,7 @@ namespace Player_List
         {
             InitializeComponent();
 
-            DatePicker datePickerAdd = new DatePicker
+            DatePicker datePicker1 = new DatePicker
             {
                 SelectedDate = new DateTime(2000, 1, 31),
                 DisplayDateStart = new DateTime(2000, 1, 31),
@@ -89,7 +89,10 @@ namespace Player_List
             //Checking to see if the name and datepicker have a value inside of them
             if (txtBoxName != null && datePicker1 != null)
             {
-                _playersList.Add(new Player() { Name = txtBoxName.Text });
+                //Adding a new player to the list based on the name input and the date picker selection
+                _playersList.Add(new Player() { Name = txtBoxName.Text, DOB = datePicker1.SelectedDate.Value });
+
+                txtBoxName.Clear();
             }
             else
             {
