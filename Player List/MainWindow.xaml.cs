@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,7 +119,13 @@ namespace Player_List
 
         private void BtnSaveContent_Click(object sender, RoutedEventArgs e)
         {
-
+            using (StreamWriter playerFile = File.CreateText(@"F:\Year 2\Semester 2\Foop202\PlayerList.txt"))
+            {
+                foreach (Player player in _playersList)
+                {
+                    JToken.FromObject(player).ToString();
+                }
+            }
         }
 
         private void BtnLoadContent_Click(object sender, RoutedEventArgs e)
