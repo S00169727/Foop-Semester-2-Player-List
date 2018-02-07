@@ -49,8 +49,7 @@ namespace Player_List
                 AgeGroupsOutput = _AgeGroups.u18.ToString();
             }
         }
-       
-
+        
         //Overriding the ToString method
         public override string ToString()
         {

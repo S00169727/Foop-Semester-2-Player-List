@@ -49,7 +49,7 @@ namespace Player_List
                 SelectedDate = new DateTime(2000, 1, 31),
                 DisplayDateStart = new DateTime(2000, 1, 31),
                 DisplayDateEnd = new DateTime(2008, 1, 31),
-                SelectedDateFormat = DatePickerFormat.Long,
+                SelectedDateFormat = DatePickerFormat.Short,
                 FirstDayOfWeek = DayOfWeek.Monday
             };
         }
@@ -119,12 +119,11 @@ namespace Player_List
 
         private void BtnSaveContent_Click(object sender, RoutedEventArgs e)
         {
-            using (StreamWriter playerFile = File.CreateText(@"F:\Year 2\Semester 2\Foop202\PlayerList.txt"))
+            string json = JsonConvert.SerializeObject(_playersList, Formatting.Indented);
+
+            using (StreamWriter sw = new StreamWriter(@"H:\Year 2\Semester 2\FOOP202\PlayerList.json"))
             {
-                foreach (Player player in _playersList)
-                {
-                    JToken.FromObject(player).ToString();
-                }
+                sw.Write(json);
             }
         }
 
@@ -133,6 +132,8 @@ namespace Player_List
 
         }
 
-        
+
+
+
     }
 }
